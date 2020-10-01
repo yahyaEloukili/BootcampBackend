@@ -3,6 +3,7 @@ package com.bootcamp.services;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ import com.bootcamp.entities.Utilisateur;
 @Service
 @Transactional
 public class AccountServiceImpl implements AccountService {
-
+	 @Autowired
+	    private BCryptPasswordEncoder bCryptPasswordEncoder;
 	 @Autowired
 	    private UtilisateurRepository utilisateurRepository;
 	    @Autowired
@@ -40,6 +42,15 @@ public class AccountServiceImpl implements AccountService {
     public Utilisateur findUserByEmail(String email) {
         return utilisateurRepository.findByEmail(email);
     }
+
+	@Override
+	public Utilisateur saveUser(Utilisateur user) {
+
+    	String hashPw = bCryptPasswordEncoder.encode(user.getPassword());
+       
+        user.setPassword(hashPw);
+        return utilisateurRepository.save(user);
+	}
 
 
 }

@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
  // http.formLogin();
    http.authorizeRequests().antMatchers("/login/**").permitAll();
+   http.authorizeRequests().antMatchers("/register/**").permitAll();
    http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
   http.authorizeRequests().antMatchers(HttpMethod.POST,"/bootcamps/**").hasAuthority("Admin");
   http.authorizeRequests().antMatchers(HttpMethod.POST,"/v2/createBootcamp/**").hasAuthority("publisher");
